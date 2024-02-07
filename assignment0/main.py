@@ -18,7 +18,7 @@ def main(url):
     assignment0.populatedb(db, incidents)
 	
     # Print incident counts
-    print(assignment0.status(db))
+    print(assignment0.status(db),end='')
 
 
 if __name__ == '__main__':
