@@ -37,6 +37,7 @@ def extractincidents(pdf_data):
     formatted_data = [entry for entry in incidents if len(entry) == 5]
     formatted_data += [[entry[0], entry[1], '', '', entry[2]] for entry in incidents if len(entry) == 3]
     formatted_data += [[entry[0], entry[1], entry[2], '', entry[3]] for entry in incidents if len(entry) == 4]
+    formatted_data.pop(0)
     
     return formatted_data
 
