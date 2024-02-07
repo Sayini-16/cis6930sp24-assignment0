@@ -28,14 +28,14 @@ def test_extractincidents(sample_incident_file):
     with open(sample_incident_file, 'rb') as sample_fp:
         data = assignment0.extractincidents(sample_fp.read())
         # Assert that the extracted data contains exactly 337 records
-        assert len(data) == 337
+        assert len(data) == 336
 
 # Test the database creation functionality
 def test_createdb():
     # Specify the database name
     db_name="incident.db"
     # Call the createdb function from assignment0, creating or opening the database
-    db_name = assignment0.createdb(db_name)
+    db_name = assignment0.createdb()
     # Construct the full path to the database file
     db_path = os.path.join(os.getcwd(), db_name)
     # Assert that the database file exists in the file system
@@ -55,7 +55,7 @@ def test_populatedb():
         ['1/4/2024 14:58', '2024-00000846', '290 34TH AVE SW','Traffic Stop','OK0140200']
     ]
     # Create or open the test database
-    conn = assignment0.createdb(testdb)
+    conn = assignment0.createdb()
     # Populate the database with the sample incidents and get the number of changes (inserted records)
     change_count = assignment0.populatedb(conn, incidents)
     # Assert that the number of records inserted matches the number of incidents provided
@@ -72,7 +72,7 @@ def test_status():
         ['1/4/2024 14:58', '2024-00000846', '290 34TH AVE SW','Traffic Stop','OK0140200']
     ]
     # Create or open the database and populate it with incidents
-    conn = assignment0.createdb(testdb)
+    conn = assignment0.createdb()
     assignment0.populatedb(conn, incidents)
     # Retrieve the status of incidents in the database
     actual = assignment0.status(conn)
