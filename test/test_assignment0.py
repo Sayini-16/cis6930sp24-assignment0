@@ -18,7 +18,7 @@ def sample_incident_file():
 # Test the function responsible for fetching incident data from a PDF file
 def test_fetchincidents(sample_incident_file):
     # Use assignment0's fetchincidents function to get data from the sample PDF file
-    file_data = assignment0.fetchincidents('file:\\' + sample_incident_file)
+    file_data = assignment0.fetchincidents('file://' + sample_incident_file)
     # Assert that the fetched data is in bytes format
     assert isinstance(file_data, bytes)
 
