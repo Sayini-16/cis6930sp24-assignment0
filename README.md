@@ -1,22 +1,25 @@
-## Crime Incidents Reporter
+## Assignment 0 - CIS 6930 Spring 2024
 
 ## Author: Anirudh Sayini
 
-## Description of the project:
+## Description of the Assignment:
 
-The Norman, Oklahoma police department regularly reports incidents, arrests, and other activities. This data is distributed to the public in the form of PDF files. (https://www.normanok.gov/public-safety/police-department/crime-prevention-data/department-activity-reports)
-The website contains three types of summaries arrests, incidents, and case summaries. In this project a function is built that collects only the incidents. And Following operations are done
+This assignment will be practicing extracting data from an online source and reformatting the data. Use your knowledge of Python3, SQL, regular expressions, and the Linux command line tools to extract information from a CSV file on the web.
 
-- To download the data given one incident pdf
-- To Extract the below fields:
+The Norman, Oklahoma police department regularly reports incidents, arrests, and other activities. This data is hosted on their website (https://www.normanok.gov/public-safety/police-department/crime-prevention-data/department-activity-reports). This data is distributed to the public in the form of PDF files.
+
+The website contains three types of summaries arrests, incidents, and case summaries. Your assignment is to build a function that collects only the incidents. To do so, you need to write Python (3) function(s) to do each of the following:
+
+- Download the data given one incident pdf
+- Extract the fields:
   - Date / Time
   - Incident Number
   - Location
   - Nature
   - Incident ORI
-- To create a SQLite database to store the data;
-- To Insert the data into the database;
-- To Print each nature and the number of times it appears
+- Create a SQLite database to store the data
+- Insert the data into the database
+- Print each nature and the number of times the nature appears
 
 ## Setting up the Initial installations 
 We run the following installations in the project's virtual environment. Even if the installations are done in the Python environment, in the project's virtual environment, there might be an error popping up "no module named nltk"
@@ -172,30 +175,34 @@ I used the Pytest framework in Python to check for the individual test cases. To
 pipenv install pytest
 ~~~
 
-## 3.test_project0.py
+## 3.test_assignment0.py
 
-The test_project0.py file contains the unit testcases to test each method of project0.py if it is working are not, in this file we written the below 5 testcases to test each method.
+The test_assignment0.py file contains the unit testcases to test each method of project0.py if it is working are not, in this file we written the below 5 testcases to test each method.
 Below are imported for this file
 - pytest
-- NoneType from types
 - os
-- io
+- sys
 - sqlite3
-- project0
+- assignment0
 <br>
 In tests folder I attached a pdf file called sample.pdf to test my functions.
 
-![SS7](https://user-images.githubusercontent.com/96924488/157276897-8e529aa1-cbc9-4147-b1de-97d02a14ff88.png)
+![SS7](https://github.com/Sayini-16/coursera-test/assets/81869410/ce5ab09c-912f-4ad7-b275-10294a53a940)
 
 <br>
-os. getcwd() returns the absolute path of the working directory where Python is currently running as a string str.
-So from the command
+This Python function, named `sample_incident_file`, is designed to construct and return the absolute file path of a PDF file named `sample.pdf` located within a directory named `test`, which itself is situated in the current working directory of the script. Here's a step-by-step explanation of what each part of the function does:
 
-<br>
+1. **Import Required Modules**: Before you can run this function, you need to ensure that the `os` module is imported since the function uses `os.getcwd()` and `os.path.join()`. The `os` module provides a portable way of using operating system dependent functionality like interacting with the file system.
 
-return os.path.join(cwd, 'tests', 'sample.pdf')
-<br>
-it returns the path to sample.pdf file from tests directory in the current directory
+2. **`cwd = os.getcwd()`:** This line calls the `getcwd()` method from the `os` module, which returns the current working directory of the process. The current working directory is the folder in which the script is running. The result is stored in the variable `cwd`.
+
+3. **`return os.path.join(cwd, 'test', 'sample.pdf')`:** This line constructs the absolute path to the file `sample.pdf` by joining several path components:
+   - `cwd`: The current working directory obtained in the previous step.
+   - `'test'`: A string literal that represents the name of the subdirectory within the current working directory.
+   - `'sample.pdf'`: The name of the file whose path we want to construct.
+
+   The `os.path.join()` function takes these components and constructs a path string that is appropriate for the operating system on which the script is running. For example, on Windows, it would use backslashes (`\`), whereas on Unix-like systems, it would use forward slashes (`/`) as the directory separator.
+
 
 ### **test_fetchincidents():**
 <br>
@@ -256,17 +263,39 @@ The `test_createdb` function is designed to test the database creation functiona
 
 ### **test_populatedb( ):**
 
-![SS11](https://user-images.githubusercontent.com/96924488/157277066-8a4f6117-6794-474d-b636-d9aa26a3ef1e.png)
+![SS11](https://github.com/Sayini-16/coursera-test/assets/81869410/31709a09-e3a0-4992-83a8-843ae11d126d)
 <br>
-In this method we test the **populated()** method, few incidents will be pushed into the database. populate_db method will return the count of total changes, so this count will be taken after inserting the data and this is compared with length of the incidents that I pushed into the table, if both are same then the test case is passed. Finally the path to the database will be removed.
+This Python function, `test_populatedb`, seems to be a test function, likely designed to verify the functionality of database operations within a Python application, specifically focusing on populating a database with sample data. Here's a breakdown of its components and their purposes:
+
+1. **Test Database Name:** The variable `testdb` is assigned the name of the test database file `test_database2.db`. This is presumably the SQLite database file where the test data will be inserted. However, this variable is defined but not used within the function as provided, which might be an oversight or the actual database creation and usage could be abstracted within the `assignment0.createdb()` call.
+
+2. **Sample Incident Records:** The `incidents` list contains sample data representing incident records. Each incident is represented as a list containing details like the date and time of the incident, an incident ID, the location, the nature of the incident (e.g., 'Traffic Stop'), and a code that possibly represents an agency or department ('OK0140200'). This data structure is designed to be inserted into a database table.
+
+3. **Database Connection:** The function `assignment0.createdb()` is called to create or open the test database. This function is expected to return a database connection object (`conn`). The specific implementation of `createdb()` is not shown, but it's part of a module or package named `assignment0`, which likely handles database interactions.
+
+4. **Populating the Database:** The function `assignment0.populatedb(conn, incidents)` is called to populate the test database with the sample incident records. This function takes the database connection `conn` and the `incidents` list as arguments. It is responsible for inserting the sample data into the database. The function is expected to return the number of records successfully inserted into the database, which is stored in `change_count`.
+
+5. **Assertion:** Finally, an assertion is made to ensure that the number of records inserted (`change_count`) matches the number of incidents provided in the `incidents` list. This is a basic test to verify that the `populatedb` function worked as expected and all sample records were inserted into the database.
 
 ## **test_status( ):**
 
 In this method we test the **status()** method.
 <br>
- ![SS12](https://user-images.githubusercontent.com/96924488/157277117-c3821d7e-5670-491d-8e92-c2cb24d61d62.png)
+ ![SS12](https://github.com/Sayini-16/coursera-test/assets/81869410/82bcb20b-2a52-4ba1-86d4-0dc9f564c2bb)
 <br>
-Like previous function, incidents data will be pushed into the database. Then populatedb method will be executed on it, it will give a result and that result is compared with result that we already expect, and if they both are same test case will be passed.
+The function `test_status` is another test case, this time focusing on verifying the retrieval of specific data (in this case, incident statuses) from a database. This function forms part of a testing suite, likely for a Python application that manages or tracks incident reports. Here's how the function works:
+
+1. **Test Database Name:** The function sets up a variable `testdb` with the name of another test database, `test_database3.db`. Similar to the previous function, this variable is defined but not directly used within the provided code snippet. The intended use of `testdb` is likely similar—to specify the database file to be created or opened—but the actual implementation within the `assignment0.createdb()` call is not shown.
+
+2. **Sample Incident Records:** A list named `incidents` is defined, containing sample data to be inserted into the database. Each item in the list represents an incident record, with details such as the date and time, an incident ID, the location (if available), the nature of the incident (e.g., 'Traffic Stop'), and a department code.
+
+3. **Database Creation and Population:** The `assignment0.createdb()` function is called to create or open the database, returning a connection object (`conn`). Then, `assignment0.populatedb(conn, incidents)` is used to insert the provided sample incident records into the database. These operations are assumed to be part of the `assignment0` module's functionality, which handles database interactions.
+
+4. **Retrieving Incident Statuses:** The `assignment0.status(conn)` function is called, which presumably queries the database to retrieve information about the status of incidents. The exact nature of the returned data isn't detailed, but based on the context, `actual` is expected to contain a summary or report of incident statuses.
+
+5. **Expected Outcome:** The variable `expected` is defined with the value 'Traffic Stop|2', indicating the test expects to find two incidents with the status 'Traffic Stop' in the database's output.
+
+6. **Assertion:** The function asserts that the expected status string is found within the actual status output retrieved from the database. This assertion is a key test to verify that the `status` function correctly aggregates or reports the status of incidents in the database.
 
 ## To run the Pytest : 
 I used the following command to run my python tests for the given function.
@@ -276,16 +305,18 @@ I used the following command to run my python tests for the given function.
 
 ## 4.Assumptions/Bugs:
 
-- In this project we assumed that only location and nature columns have missing values in the pdf document and we handled only the missing values in those columns, if any other column has the missing values in the pdf the code will fail. 
-- After splitting the data by date the maximum length of the list we observed is 7, if the length of list is > 7 then the code may fail in this case.
-- I assumed that among location and nature, if my data gives only list of length 4 then nature column is missing, this assumption is made after looking into the files, but if location is missed instead of nature then this code will fail.
+- In this project, we made specific assumptions regarding the missing data within the PDF document. Firstly, we anticipated missing values exclusively in the 'location' and 'nature' columns. Our approach was tailored to address these gaps, meaning that the presence of missing values in any other column would result in the code's failure.
+
+- Additionally, our analysis revealed that after segregating the data based on dates, the maximal observed list length was seven. Should the list length exceed seven, the code is likely to encounter issues.
+
+- Furthermore, our methodology relies on the presumption that a list length of four indicates the absence of data in the 'nature' column, a conclusion drawn from examining the files. However, this assumption holds true only under these specific conditions. In instances where the 'location' data is missing instead, the code will not perform as expected.
 
 
-## Steps to Run project0
+## Steps to Run Assignment0
 
 - **Step1** \
 clone the project directory using below command 
-> git clone  https://github.com/VarshithaCVasireddy/Crime_Incidents_Reporter
+> git clone  https://github.com/Sayini-16/cis6930sp24-assignment0
 
 - **Step2** \
 Navigate to directory that we cloned from git and run the below command to install dependencies
