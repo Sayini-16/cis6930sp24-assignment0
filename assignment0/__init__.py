@@ -66,8 +66,7 @@ def status(database_name):
     summary = ""
     total_incidents = sum([row[1] for row in query_result])
     for nature, count in query_result:
-        if nature != '' :
-            summary += f"{nature}|{count}\n"
+        summary += f"{nature}|{count}\n"
     #print(total_incidents)
         
     conn.close()
